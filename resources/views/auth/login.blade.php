@@ -13,7 +13,17 @@
         @if (session('success'))
             <div class="text-green-600 text-center">{{ session('success') }}</div>
         @endif
-        
+
+        @if ($errors->any())
+            <div class="bg-red-100 text-red-700 p-4 rounded-lg mb-4">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
         <form action="{{ route('login.store') }}" method="POST" class="mt-4">
             @csrf
             <div>
@@ -24,10 +34,11 @@
                 <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
                 <input type="password" name="password" required class="w-full px-4 py-2 mt-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-100">
             </div>
-            <a href="{{ route('dashboard.admin') }}" class="block w-full mt-6 bg-yellow-500 text-white py-2 text-center rounded-lg hover:bg-yellow-600 transition">
+            <button type="submit" class="block w-full mt-6 bg-yellow-500 text-white py-2 text-center rounded-lg hover:bg-yellow-600 transition">
                 Login
-            </a>                        
+            </button>                        
         </form>
+        
         <p class="mt-4 text-sm text-center text-gray-600">Belum punya akun? <a href="{{ route('register.form') }}" class="text-yellow-600">Daftar</a></p>
     </div>
 </body>
